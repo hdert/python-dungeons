@@ -1,4 +1,4 @@
-<mxfile host="embed.diagrams.net" modified="2020-09-09T22:14:06.682Z" agent="5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) code-oss/1.48.2 Chrome/78.0.3904.130 Electron/7.1.14 Safari/537.36" etag="cv-giRKTL6DsDl6KI-2d" version="13.6.9">
+<mxfile host="embed.diagrams.net" modified="2020-09-09T22:22:39.514Z" agent="5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) code-oss/1.48.2 Chrome/78.0.3904.130 Electron/7.1.14 Safari/537.36" etag="3_GO9t_JheXagvF0Oqoi" version="13.6.9">
     <diagram id="8XSCrUeE-ic_tGPNF9zw" name="Page-1">
         <mxGraphModel dx="583" dy="391" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
@@ -58,7 +58,7 @@
                 <mxCell id="157" value="FK" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;" parent="156" vertex="1">
                     <mxGeometry width="30" height="30" as="geometry"/>
                 </mxCell>
-                <mxCell id="158" value="leaderboard_id" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;" parent="156" vertex="1">
+                <mxCell id="158" value="leaderboard_id NOT NULL" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;" parent="156" vertex="1">
                     <mxGeometry x="30" width="210" height="30" as="geometry"/>
                 </mxCell>
                 <mxCell id="159" value="" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="152" vertex="1">
