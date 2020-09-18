@@ -31,17 +31,16 @@ def db_create(db_path="main.db"):
       score tinyint(2) NOT NULL
     )
     """)
-    current_date = date.now()
+    current_date = date.today()
     users = [['Billy', current_date], ['Eilish', current_date],
              ['Joel', current_date]]
     score = [[5, 7, 15], [15, 15, 14], [2, 7, 13]]
     for i in users:
       c.execute(
           """
-      BEGIN;
       INSERT into leaderboard (username,date) VALUES (?,?);
-      """, i[0], i[1])
-      user_id = c.lastrowid()
+      """, [i[0], i[1]])
+      user_id = c.lastrowid
       for i in range(3):
         c.execute(
             """
