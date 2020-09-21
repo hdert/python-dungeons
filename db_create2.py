@@ -6,7 +6,7 @@ db_path = "main.db"
 
 
 def db_create(db_path="main.db"):
-    """Check that the database doesn't exist, create the database, create the
+    """Check that the database doesn't exist, create the database, create the \
     tables, finally connect to the database.
 
     Use os.path.isfile() on the database path to check if the file exists.
