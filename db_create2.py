@@ -19,7 +19,9 @@ def db_create(db_path="main.db"):
     conn = sqlite3.connect(db_path)
     conn.isolation_level = None
     c = conn.cursor()
-    if not db_exists:
+    if db_exists:
+        return conn, c
+    else:
         c.execute("""
         CREATE TABLE leaderboard(
             username varchar(15) NOT NULL,
@@ -39,8 +41,6 @@ def db_create(db_path="main.db"):
         (username, date, scoreone, scoretwo, scorethree)
         VALUES (?,?,?,?,?);
         """, users)
-        return conn, c
-    else:
         return conn, c
 
 
