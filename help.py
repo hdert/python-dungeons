@@ -16,11 +16,11 @@ def help():  # noqa: D205, D400
     The only input in this game are the numbers 1 to 4. Each of these numbers
     will correspond to an action or answer.
     Try this example of navigation (press enter to continue): """)
-    for x in range(10):
+    for x in range(10):  # pylint: disable=unused-variable
         user_input = input("""
-    Navigation: 
+    Navigation:
     1) North: Cheese Room;
-    2) South: Exit; 
+    2) South: Exit;
     3) East: Blocked Door;
     4) West: Blocked Door;
     [1-4]: """)
