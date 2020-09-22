@@ -33,8 +33,7 @@ def help():  # noqa: D205, D400
     What? Escape? Why would you want to do that now?""")
         elif user_input == "3" or user_input == "4":
             input("""
-    You walked into the concrete of the blocked doorway,
-    donked your head and lost your non-existent brain cells""")
+    You walk into the concrete of the blocked doorway""")
         else:
             input("""
     When prompted, enter one of the numbers 1, 2, 3, 4.
