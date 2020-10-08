@@ -31,7 +31,7 @@ def help():  # noqa: D205, D400
         elif user_input == "2":
             input("""
     What? Escape? Why would you want to do that now?""")
-        elif user_input == "3" or user_input == "4":
+        elif user_input in ("3", "4"):
             input("""
     You walk into the concrete of the blocked doorway""")
         else:

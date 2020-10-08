@@ -27,9 +27,7 @@ def db_create(db_path="main.db"):  # noqa: D205, D400
     conn = sqlite3.connect(db_path)
     conn.isolation_level = None
     c = conn.cursor()
-    if db_exists:
-        return conn, c
-    else:
+    if not db_exists:
         c.execute("""
         CREATE TABLE leaderboard(
             username varchar(15) NOT NULL,
@@ -49,7 +47,7 @@ def db_create(db_path="main.db"):  # noqa: D205, D400
         (username, date, scoreone, scoretwo, scorethree)
         VALUES (?,?,?,?,?);
         """, users)
-        return conn, c
+    return conn, c
 
 
 if __name__ == "__main__":

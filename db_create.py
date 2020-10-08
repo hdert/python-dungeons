@@ -1,3 +1,4 @@
+# noqa: D100
 from os.path import isfile
 import sqlite3
 from datetime import date
@@ -5,7 +6,7 @@ from datetime import date
 db_path = "main.db"
 
 
-def db_create(db_path="main.db"):
+def db_create(db_path="main.db"):  # noqa: D205, D400
     """Check that the database doesn't exist, create the database, create the
     tables, finally connect to the database.
 
@@ -53,12 +54,11 @@ def db_create(db_path="main.db"):
                     """
         INSERT into score (leaderboard_id,score) VALUES (?,?);
         """, [user_id, score[users.index(i)][i]])
-        return conn, c
     else:
         conn = sqlite3.connect(db_path)
         conn.isolation_level = None
         c = conn.cursor()
-        return conn, c
+    return conn, c
 
 
 if __name__ == "__main__":
