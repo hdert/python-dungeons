@@ -1,4 +1,6 @@
-# noqa: D100
+"""See help.__doc__."""
+
+
 def help():  # noqa: D205, D400
     """Interactively explain the game's input mechanism and tell the backstory
         to the user.
@@ -6,17 +8,17 @@ def help():  # noqa: D205, D400
     Tell the user to input a number between 1 and 4 corresponding to the
     action on screen that they want to take. Give an interactive example of
     this by using an example navigation system where the user has to navigate
-    to the cheese room. Once this is completed tell the backstory to the user
-    and recommend the user navigates to the first quiz when prompted, as well
-    as recommending that the user gets some paper and a pen.
+    to the cheese room. Once this is completed recommend that the user gets
+    some paper and a pen.
     """
+
     input("""
     Welcome to python-quiz, your source of NCEA knowledge quizzes.
 
     The only input in this game are the numbers 1 to 4. Each of these numbers
     will correspond to an action or answer.
     Try this example of navigation (press enter to continue): """)
-    for x in range(10):  # pylint: disable=unused-variable
+    while True:
         user_input = input("""
     Navigation:
     1) North: Cheese Room;
@@ -27,6 +29,9 @@ def help():  # noqa: D205, D400
         if user_input == "1":
             input("""
     You obviously know what you're doing.""")
+            input("""
+    These questions are supposed to be difficult, you should go grab something
+    to write on.""")
             return
         elif user_input == "2":
             input("""
@@ -38,9 +43,6 @@ def help():  # noqa: D205, D400
             input("""
     When prompted, enter one of the numbers 1, 2, 3, 4.
     Each number corresponds to an action printed on screen""")
-    print("""
-    You've had ten attempts at getting the right user input
-    and you've failed every time.""")
 
 
 if __name__ == "__main__":
