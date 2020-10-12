@@ -1,9 +1,7 @@
-# noqa: D100
+"""See db_create.__doc__."""
 from os.path import isfile
 import sqlite3
 from datetime import date
-
-db_path = "main.db"
 
 
 def db_create(db_path="main.db"):  # noqa: D205, D400
@@ -51,4 +49,4 @@ def db_create(db_path="main.db"):  # noqa: D205, D400
 
 
 if __name__ == "__main__":
-    db_create(db_path)
+    db_create()

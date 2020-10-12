@@ -1,4 +1,4 @@
-# noqa: D100
+"""See db_create.__doc__."""
 from os.path import isfile
 import sqlite3
 from datetime import date
@@ -8,7 +8,7 @@ db_path = "main.db"
 
 def db_create(db_path="main.db"):  # noqa: D205, D400
     """Check that the database doesn't exist, create the database, create the
-    tables, finally connect to the database.
+        tables, finally connect to the database.
 
     Use os.path.isfile() on the database path to check if the file exists.
     Connect to the database. Set the conn.isolation_level to None.
