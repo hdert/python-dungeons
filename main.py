@@ -17,9 +17,10 @@ def main():
     introduction()
     location = navigate()
     while True:
-        if quiz_check(location):
+        if quiz_check(location, score_one, score_two, score_three):
             quiz(location)
-            if score_one is not None and score_two is not None and score_three is not None:
+            if (score_one is not None and score_two is not None
+                    and score_three is not None):
                 if want_leaderboard_entry():
                     conn, c = db_create()
                     leaderboard_entry(conn, c)
