@@ -11,7 +11,6 @@ def help():  # noqa: D205, D400
     to the cheese room. Once this is completed recommend that the user gets
     some paper and a pen.
     """
-
     input("""
     Welcome to python-quiz, your source of NCEA knowledge quizzes.
 
