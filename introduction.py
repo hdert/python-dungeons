@@ -1,9 +1,9 @@
-"""See help.__doc__."""
+"""See introduction.__doc__."""
 
 
-def help():  # noqa: D205, D400
+def introduction():  # noqa: D205, D400
     """Interactively explain the game's input mechanism and tell the backstory
-        to the user.
+    to the user.
 
     Tell the user to input a number between 1 and 4 corresponding to the
     action on screen that they want to take. Give an interactive example of
@@ -45,4 +45,4 @@ def help():  # noqa: D205, D400
 
 
 if __name__ == "__main__":
-    help()
+    introduction()
