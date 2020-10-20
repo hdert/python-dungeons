@@ -11,8 +11,8 @@ def quiz_check(location, score_one, score_two, score_three):
 
 
 if __name__ == "__main__":
-    print(
-        quiz_check(int(input("""
-    Location: """)), None, int(input("""
-    Score two: """)), int(input("""
-    Score three: """))))
+    for x in range(4):
+        for y in range(2):
+            print(
+                quiz_check(x, None if y == 1 else 1, None if y == 1 else 1,
+                           None if y == 1 else 1))
