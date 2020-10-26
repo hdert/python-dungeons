@@ -84,4 +84,4 @@ def navigate(location=0):  # noqa: D205
 
 
 if __name__ == "__main__":
-    print(navigate())
+    print(navigate(int(input())))
