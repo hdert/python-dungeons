@@ -17,8 +17,10 @@ def main():
     introduction()
     location = navigate()
     while True:
-        if quiz_check(location, score_one, score_two, score_three):
-            quiz(location)
+        if quiz_check(location, score_one, score_two,
+                      score_three) and location != 0:
+            score_one, score_two, score_three = quiz(location, score_one,
+                                                     score_two, score_three)
             if (score_one is not None and score_two is not None
                     and score_three is not None):
                 if want_leaderboard_entry():
@@ -27,9 +29,10 @@ def main():
                     show_leaderboard(conn, c)
                 return
         else:
-            input("""
+            if location != 0:
+                input("""
     You've done this room.""")
-        navigate(location)
+        location = navigate(location)
 
 
 if __name__ == "__main__":
