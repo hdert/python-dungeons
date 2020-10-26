@@ -27,18 +27,19 @@ def quiz(location, score):
     You got it right""")
             score[location - 1] += 1
         else:
-            answers_text = ""
+            answers_text = ""  # initialize answers_text as a string
             for i in answers:
                 answers_text += f"    {i},\n"
-            answers_text = "".join(answers_text.rsplit(
-                ",", 1))  # reverse version of string.replace()
+                # for each entry in answers, insert that answer with a leading
+                # tab and trailing comma and newline
+            answers_text = "".join(
+                answers_text.rsplit(",\n", 1)
+            )  # reverse version of string.replace(), replacing ",\n" with ""
             input(f"""
     You got it wrong.
     The answer was one of:
 {answers_text}""")
     return (score[0], score[1], score[2])
-    text = ''
-    text.replace()
 
 
 if __name__ == "__main__":
