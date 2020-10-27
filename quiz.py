@@ -46,7 +46,7 @@ def quiz(location, score):
     You got it wrong.
     The answer was one of:
 {answers_text}""")
-    return (score[0], score[1], score[2])
+    return score
 
 
 if __name__ == "__main__":
