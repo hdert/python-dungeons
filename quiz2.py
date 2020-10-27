@@ -4,7 +4,22 @@ from random import randint as rand
 
 
 def quiz(location, score):
-    """D."""
+    """Give the user an interactive quiz based on their location.
+
+    Use the user's location find the correct set of quiz_questions and
+    quiz_answers to use. Assign these questions and answers to
+    current_questions and current_answers. Use the user's location to find and
+    set the appropriate score to 0. While there are more than 0 questions do
+    the following:
+    1. Pick a random question in the range of questions left.
+    2. Give the user a prompt to type their answer, therein deleting the
+    question from the question list.
+    3. Check against the answers list, therein deleting the answer from the
+    answers list.
+        3.1 If the answer was right, iterate the user score.
+        3.2 If not display the correct answers.
+    If there are 0 questions return the user scores.
+    """
     # Initialize lists of answers and questions
     quiz_questions = [[
         """Write one of:
@@ -34,12 +49,11 @@ def quiz(location, score):
     You got it right""")
             score[location - 1] += 1
         else:
-            answers_text = ",\n    ".join(answers)
-            input(f"""
+            input("""
     You got it wrong.
     The answer was one of:
-    {answers_text}""")
-    return (score[0], score[1], score[2])
+    {}""".format(",\n    ".join(answers)))
+    return score
 
 
 if __name__ == "__main__":
