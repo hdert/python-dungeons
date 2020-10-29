@@ -1,9 +1,9 @@
 """See main.__doc__."""
 from db_create2 import db_create
 from introduction import introduction
-from navigate import navigate
-from quiz_check2 import quiz_check
-from quiz import quiz
+from navigate2 import navigate
+from quiz_check3 import quiz_check
+from quiz3 import quiz
 from want_leaderboard_entry import want_leaderboard_entry
 from leaderboard_entry import leaderboard_entry
 from show_leaderboard import show_leaderboard
