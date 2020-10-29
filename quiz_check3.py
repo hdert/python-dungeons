@@ -2,7 +2,16 @@
 
 
 def quiz_check(location, score):
-    """Check if there is an unplayed quiz in the users current room."""
+    """Check if there is an unplayed quiz in the users current room.
+
+    Args:
+        location:
+            The location of the user.
+        score:
+            The score of the user.
+    Returns:
+        A boolean value, True if there is a quiz, False if there is not.
+    """
     if ((location == 1 and score[0] is not None)
             or (location == 2 and score[1] is not None)
             or (location == 3 and score[2] is not None)
