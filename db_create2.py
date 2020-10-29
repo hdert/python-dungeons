@@ -49,4 +49,4 @@ def db_create(db_path="main.db"):  # noqa: D205, D400
 
 
 if __name__ == "__main__":
-    db_create()
+    print(db_create())
