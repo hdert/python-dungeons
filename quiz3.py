@@ -21,26 +21,37 @@ def quiz(location, score):
         3.2 If not display the correct answer using answer_text.
     If there are 0 questions left in the current location, return the user
     scores.
+
+    Args:
+        location:
+            The location of the user.
+        score:
+            The score of the user.
+    Returns:
+        The score of the user.
     """
     # Initialize lists of answers and questions
-    quiz_questions = [[
-        """The answer is Example:""", """Finish the lyrics:
+    quiz_questions = [
+        [
+            "The answer is Example:", """Finish the lyrics:
     Boom clap I'm in me mom's *"""
-    ],
-                      [
-                          "What part of speech is the word jump?",
-                          """What language feature is this:
+        ],
+        [
+            "What part of speech is the word jump?",
+            """What language feature is this:
     Go clean your room right now this instance you naughty little
     devil child!""", """What type of poem is this:
     Go clean your room right
     now this instance you naughty
     little devil child!"""
-                      ], []]
+        ], ["How many credits does a Year 11 student in 2020 need:"]
+    ]
     quiz_answers = [[["Example", "None", "wasd", "Not Example", 0],
                      ["car", "room", "house", "town", 0]],
                     [["Noun", "Verb", "Adjective", "Adverb", 1],
                      ["Hyperbole", "Rhetoric", "Imperative", "Sonnet", 2],
-                     ["Sonnet", "Haiku", "Limerick", "Free verse", 1]], []]
+                     ["Sonnet", "Haiku", "Limerick", "Free verse", 1]],
+                    [["80", "60", "72", "70", 3]]]
     # get the question answer, and score values to use based on the users
     # location
     current_questions = quiz_questions[location - 1]
