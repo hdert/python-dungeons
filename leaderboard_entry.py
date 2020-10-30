@@ -35,5 +35,5 @@ def leaderboard_entry(c, score):
 
 
 if __name__ == "__main__":
-    from db_create2 import db_create
+    from db_create3 import db_create
     leaderboard_entry(db_create(), [int(input()), int(input()), int(input())])
