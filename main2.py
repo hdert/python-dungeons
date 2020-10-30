@@ -7,6 +7,8 @@ from quiz3 import quiz
 from want_leaderboard_entry import want_leaderboard_entry
 from leaderboard_entry import leaderboard_entry
 from show_leaderboard import show_leaderboard
+from want_leaderboard import want_leaderboard
+from want_play_again import want_play_again
 
 
 def main():
@@ -21,9 +23,12 @@ def main():
                     and score[2] is not None):
                 if want_leaderboard_entry():
                     conn, c = db_create()
-                    leaderboard_entry(conn, c)
+                    leaderboard_entry(conn, c, score)
+                if want_leaderboard():
                     show_leaderboard(conn, c)
-                return
+                if want_play_again():
+                    return main()
+
         else:
             if location != 0:
                 input("""
