@@ -19,7 +19,7 @@ def db_create(db_path="main.db"):  # noqa: D205, D400
             Optional; The path to the database file, defaults to main.db.
 
     Returns:
-        The connection object and the cursor object.
+        The cursor object.
     """
     db_exists = isfile(db_path)
     conn = sqlite3.connect(db_path)
@@ -45,7 +45,7 @@ def db_create(db_path="main.db"):  # noqa: D205, D400
         INSERT INTO leaderboard
         VALUES (?,?,?,?,?,?);
         """, users)
-    return conn, c
+    return c
 
 
 if __name__ == "__main__":
