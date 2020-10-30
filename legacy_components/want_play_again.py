@@ -1,4 +1,5 @@
 """See want_play_again.__doc__."""
+from out_of_range_error import out_of_range_error
 
 
 def want_play_again():
@@ -12,24 +13,18 @@ def want_play_again():
         try:
             user_input = int(
                 input("""
-    Do you want play again:
+    Do you want to play again:
     1) Yes
     2) No
     [1-2]: """))
         except ValueError:
-            input("""
-    When prompted, enter one of the numbers 1, 2.
-    Each number corresponds to an action printed on screen""")
+            out_of_range_error(2)
             user_input = None
         if user_input in (1, 2):
             if user_input == 1:
                 return True
             return False
-        else:
-            input("""
-    When prompted, enter one of the numbers 1, 2.
-    Each number corresponds to an action printed on screen
-    """)
+        out_of_range_error(2)
 
 
 if __name__ == "__main__":
