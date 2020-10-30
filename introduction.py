@@ -16,7 +16,7 @@ def introduction():  # noqa: D205, D400
 
     The only input in this game are the numbers 1 to 4. Each of these numbers
     will correspond to an action or answer.
-    Try this example of navigation (press enter to continue): """)
+    Try this example of navigation (press enter to continue)""")
     while True:
         user_input = input("""
     Navigation:

@@ -14,8 +14,9 @@ def quiz_check(location, score):
     """
     if ((location == 1 and score[0] is not None)
             or (location == 2 and score[1] is not None)
-            or (location == 3 and score[2] is not None)
-        ):  # check if the room has a score ∴ check if the room has been played
+            or (location == 3
+                and score[2] is not None)):  # check if the room has a score
+        # ∴ check if the room has been played
         return False
     if (
             location == 0
