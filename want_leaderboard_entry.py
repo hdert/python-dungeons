@@ -19,13 +19,19 @@ def want_leaderboard_entry():  # noqa: D400, D205
     [1-2]: """))
         except ValueError:
             input("""
-    When prompted, enter one of the numbers 1, 2, 3, 4.
-    Each number corresponds to an action printed on screen""")
+    When prompted, enter one of the numbers 1, 2.
+    Each number corresponds to an action printed on screen
+    """)
             user_input = None
         if user_input in (1, 2):
             if user_input == 1:
                 return True
             return False
+        else:
+            input("""
+    When prompted, enter one of the numbers 1, 2.
+    Each number corresponds to an action printed on screen
+    """)
 
 
 if __name__ == "__main__":
