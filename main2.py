@@ -23,9 +23,9 @@ def main():
                     and score[2] is not None):
                 if want_leaderboard_entry():
                     conn, c = db_create()
-                    leaderboard_entry(conn, c, score)
+                    leaderboard_entry(c, score)
                 if want_leaderboard():
-                    show_leaderboard(conn, c)
+                    show_leaderboard(c)
                 if want_play_again():
                     return main()
 
