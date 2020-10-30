@@ -1,4 +1,5 @@
 """See navigate.__doc__."""
+from out_of_range_error import out_of_range_error
 
 room = [
     "Crypt Entrance", "Math Room", "English Room", "NCEA Headquaters",
@@ -45,9 +46,7 @@ def navigate(location=0):  # noqa: D205
     4) West: {room[relations[3][location]]};
     [1-4]: """))
     except ValueError:
-        input("""
-    When prompted, enter one of the numbers 1, 2, 3, 4.
-    Each number corresponds to an action printed on screen""")
+        out_of_range_error(4)
         return navigate(location)
     if user_input in (1, 2, 3, 4):
         if relations[user_input - 1][location] == 4:
@@ -56,9 +55,7 @@ def navigate(location=0):  # noqa: D205
     it doesn't react.""")
             return navigate(location)
         return relations[user_input - 1][location]
-    input("""
-    When prompted, enter one of the numbers 1, 2, 3, 4.
-    Each number corresponds to an action printed on screen""")
+    out_of_range_error(4)
     return navigate(location)
 
 

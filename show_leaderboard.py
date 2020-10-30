@@ -1,7 +1,8 @@
 """See show_leaderboard.__doc__."""
+from out_of_range_error import out_of_range_error
 
 
-def show_leaderboard(conn, c):
+def show_leaderboard(c):
     """DooDoo.
 
     Args:
@@ -17,15 +18,11 @@ def show_leaderboard(conn, c):
     2) No
     [1-2]: """))
         except ValueError:
-            input("""
-    When prompted, enter one of the numbers 1, 2.
-    Each number corresponds to an action printed on screen""")
+            out_of_range_error(2)
             user_input = None
         if user_input in (1, 2):
             break
-        input("""
-    When prompted, enter one of the numbers 1, 2.
-    Each number corresponds to an action printed on screen""")
+        out_of_range_error(2)
     while True:
         user_input = input("""
     Please enter the username: """)
@@ -46,6 +43,7 @@ def show_leaderboard(conn, c):
         user_input = f"%{user_input}%"
     else:
         query = "SELECT * FROM `leaderboard`"
+    c.execute(query, )
 
 
 if __name__ == "__main__":

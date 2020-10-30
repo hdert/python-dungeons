@@ -1,4 +1,5 @@
 """See introduction.__doc__."""
+from out_of_range_error import out_of_range_error
 
 
 def introduction():  # noqa: D205, D400
@@ -31,17 +32,15 @@ def introduction():  # noqa: D205, D400
             input("""
     These questions are supposed to be difficult, you should go grab something
     to write on.""")
-            return
-        elif user_input == "2":
+            break
+        if user_input == "2":
             input("""
     What? Escape? Why would you want to do that now?""")
         elif user_input in ("3", "4"):
             input("""
     You walk into the concrete of the blocked doorway""")
         else:
-            input("""
-    When prompted, enter one of the numbers 1, 2, 3, 4.
-    Each number corresponds to an action printed on screen""")
+            out_of_range_error(4)
 
 
 if __name__ == "__main__":

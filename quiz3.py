@@ -1,6 +1,7 @@
 """See quiz.__doc__."""
 
 from random import randint as rand
+from out_of_range_error import out_of_range_error
 
 
 def quiz(location, score):
@@ -77,9 +78,7 @@ def quiz(location, score):
             # answers
         except ValueError:  # if the user doesn't put in an interger, skip the
             # question and give them the error message
-            input("""
-    When prompted, enter one of the numbers 1, 2, 3, 4.
-    Each number corresponds to an action printed on screen""")
+            out_of_range_error(4)
             user_input = None  # set user_input so the program doesn't break
         # delete the question from the master list, and take user input
         current_answers.pop(rand_choice)
