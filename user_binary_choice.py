@@ -22,7 +22,7 @@ def user_binary_choice(x):  # noqa: D400, D205
     [1-2]: """))
         except ValueError:
             out_of_range_error(2)
-            user_input = None
+            return user_binary_choice(x)
         if user_input in (1, 2):
             if user_input == 1:
                 return True
