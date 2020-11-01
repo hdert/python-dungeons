@@ -23,11 +23,10 @@ def navigate(location=0):  # noqa: D205
 
     Show the user the options for navigation by getting their location and
     finding possible exits through the relations list. Find the names of the
-    rooms on the other side of the exits by consulting the room list and the
-    description list. Give the user a prompt where they answer the room they
-    want to go to as a number 1-4 corresponding to the number beside the room
-    shown in the prompt. Make sure the room value is not 4 and return the users
-    updated location.
+    rooms on the other side of the exits by consulting the rooms list. Give
+    the user a prompt where they answer the room they want to go to as a
+    number 1-4 corresponding to the number beside the room shown in the prompt.
+    Make sure the room value is not 4 and return the users updated location.
 
     Args:
         location:

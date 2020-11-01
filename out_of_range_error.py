@@ -3,7 +3,7 @@
 
 def out_of_range_error(length):  # noqa: D205, D400
     """Print and out of range error message with the list of numbers based on
-    the variable length.
+    the integer length.
 
     Args:
         length:
@@ -19,4 +19,4 @@ def out_of_range_error(length):  # noqa: D205, D400
 
 
 if __name__ == "__main__":
-    print(out_of_range_error(int(input())))
+    out_of_range_error(int(input()))

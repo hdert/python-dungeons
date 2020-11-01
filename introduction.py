@@ -3,8 +3,7 @@ from out_of_range_error import out_of_range_error
 
 
 def introduction():  # noqa: D205, D400
-    """Interactively explain the game's input mechanism and tell the backstory
-    to the user.
+    """Interactively explain the game's input mechanism.
 
     Tell the user to input a number between 1 and 4 corresponding to the
     action on screen that they want to take. Give an interactive example of
