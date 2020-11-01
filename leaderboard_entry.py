@@ -1,9 +1,11 @@
 """See leaderboard_entry.__doc__."""
 from datetime import date
+from get_username import get_username
 
 
-def leaderboard_entry(c, score):
-    """DooDoo.
+def leaderboard_entry(c, score):  # noqa: D400, D205
+    """Insert the user's score, username and the date of completion into the
+    leaderboard.
 
     Args:
         c:
@@ -11,27 +13,15 @@ def leaderboard_entry(c, score):
         score:
             The score of the user.
     """
-    while True:
-        user_input = input("""
-    Please enter your username: """)
-        if len(user_input) > 15:
-            input("""
-    Your username is too long. Your username needs to be under 15 characters"""
-                  )
-        elif len(user_input) < 1:
-            input("""
-    Your username is too short. Your username needs to be more than 0
-    characters""")
-        elif user_input.isalpha():
-            break
-        else:
-            input("""
-    Your username doesn't contain any characters. Please use characters""")
-    c.execute("INSERT INTO leaderboard VALUES (?, ?, ?, ?, ?)", [
-        user_input,
+    username = get_username()
+    c.execute("INSERT INTO leaderboard VALUES (?, ?, ?, ?, ?, ?)", [
+        username,
         date.today(), score[0], score[1], score[2],
-        ((score[0] + score[1] + score[2]) / 3)
+        sum(score) / len(score)
     ])
+    input("""
+    Your score, username and the date of completion have been entered into the
+    leaderboard""")
 
 
 if __name__ == "__main__":
