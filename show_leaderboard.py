@@ -18,7 +18,7 @@ def show_leaderboard(c):
             ORDER BY `scoreavg`, `username` ASC""", [username])
     else:
         c.execute("""SELECT * FROM `leaderboard`
-            ORDER BY `scoreavg`, `username` ASC""")
+            ORDER BY `scoretotal`, `username` ASC""")
     print(c.fetchall())
 
 
