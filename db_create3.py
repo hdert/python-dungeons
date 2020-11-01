@@ -1,7 +1,6 @@
 """See db_create.__doc__."""
 from os.path import isfile
 import sqlite3
-from datetime import date
 
 
 def db_create(db_path="main.db"):  # noqa: D205, D400
@@ -33,18 +32,9 @@ def db_create(db_path="main.db"):  # noqa: D205, D400
             scoreone tinyint(2) NOT NULL,
             scoretwo tinyint(2) NOT NULL,
             scorethree tinyint(2) NOT NULL,
-            scoreavg tinyint(2) NOT NULL
+            scoretotal tinyint(2) NOT NULL
         )
         """)
-        current_date = date.today()
-        users = [['Billy', current_date, 5, 7, 15, 27],
-                 ['Eilish', current_date, 15, 15, 14, 44],
-                 ['Joel', current_date, 2, 7, 13, 22]]
-        c.executemany(
-            """
-        INSERT INTO leaderboard
-        VALUES (?,?,?,?,?,?);
-        """, users)
     return c
 
 
