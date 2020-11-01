@@ -13,11 +13,10 @@ def leaderboard_entry(c, score):  # noqa: D400, D205
         score:
             The score of the user.
     """
-    username = get_username()
     c.execute("INSERT INTO leaderboard VALUES (?, ?, ?, ?, ?, ?)", [
-        username,
+        get_username(),
         date.today(), score[0], score[1], score[2],
-        sum(score) / len(score)
+        sum(score)
     ])
     input("""
     Your score, username and the date of completion have been entered into the
