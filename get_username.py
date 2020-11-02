@@ -17,7 +17,7 @@ def get_username():
             input("""
     The username is too short. The username needs to be more than 0
     characters""")
-        elif user_input.isalpha():
+        elif user_input.isalnum() and not user_input.isnumeric():
             return user_input
         else:
             input("""
