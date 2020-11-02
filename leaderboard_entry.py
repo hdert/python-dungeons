@@ -25,4 +25,5 @@ def leaderboard_entry(c, score):  # noqa: D400, D205
 
 if __name__ == "__main__":
     from db_create3 import db_create
+    from random import randint as rand
     leaderboard_entry(db_create(), [int(input()), int(input()), int(input())])
