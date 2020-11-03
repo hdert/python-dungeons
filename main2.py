@@ -10,9 +10,8 @@ from user_binary_choice import user_binary_choice
 
 
 def main():
-    """Run through the entire game."""
-    user_wants_to_play = True
-    while user_wants_to_play:
+    """Provide the background logic and link the components together."""
+    while True:
         score = [None, None, None]
         introduction()
         location = navigate()
@@ -29,9 +28,7 @@ def main():
                             "Do you want to see the leaderboard"):
                         show_leaderboard(c)
                     if not user_binary_choice("Do you want to play again"):
-                        user_wants_to_play = False
-                        break
-
+                        return
             else:
                 if location != 0:
                     input("""

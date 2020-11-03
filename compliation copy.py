@@ -78,8 +78,7 @@ def leaderboard_entry(c, score):  # noqa: D400, D205
     Your score, username and the date of completion have been entered into the
     leaderboard""")
 def main():
-    user_wants_to_play = True
-    while user_wants_to_play:
+    while True:
         score = [None, None, None]
         introduction()
         location = navigate()
@@ -96,8 +95,7 @@ def main():
                             "Do you want to see the leaderboard"):
                         show_leaderboard(c)
                     if not user_binary_choice("Do you want to play again"):
-                        user_wants_to_play = False
-                        break
+                        return
             else:
                 if location != 0:
                     input("""
