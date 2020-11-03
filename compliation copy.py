@@ -106,7 +106,6 @@ def main():
 def navigate(location=0):  # noqa: D205
     room = ["Crypt Entrance", "Math Room", "English Room", "NCEA Headquaters", "Fancy Wall"]
     relations = [[2, 4, 4, 4], [4, 4, 0, 4], [3, 0, 4, 4], [1, 4, 4, 0]]
-    desc = ["A dull enclosed space with three doors", "A dull enclosed space with one door", "A dull enclosed space with one door", "A dull enclosed space with one door"]
     try:
         user_input = int(
             input(f"""
