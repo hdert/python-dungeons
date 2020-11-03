@@ -1,20 +1,6 @@
 """See navigate.__doc__."""
 from out_of_range_error import out_of_range_error
 
-room = [
-    "Crypt Entrance", "Math Room", "English Room", "NCEA Headquaters",
-    "Fancy Wall"
-]
-
-relations = [[2, 4, 4, 4], [4, 4, 0, 4], [3, 0, 4, 4], [1, 4, 4, 0]]
-
-desc = [
-    "A dull enclosed space with three doors",
-    "A dull enclosed space with one door",
-    "A dull enclosed space with one door",
-    "A dull enclosed space with one door"
-]
-
 
 def navigate(location=0):  # noqa: D205
     """Show the user the options for navigation and give them a prompt.
@@ -35,6 +21,19 @@ def navigate(location=0):  # noqa: D205
     Returns:
         The location of the user as an int.
     """
+    room = [
+        "Crypt Entrance", "Math Room", "English Room", "NCEA Headquaters",
+        "Fancy Wall"
+    ]
+
+    relations = [[2, 4, 4, 4], [4, 4, 0, 4], [3, 0, 4, 4], [1, 4, 4, 0]]
+
+    # desc = [
+    #     "A dull enclosed space with three doors",
+    #     "A dull enclosed space with one door",
+    #     "A dull enclosed space with one door",
+    #     "A dull enclosed space with one door"
+    # ]
     try:
         user_input = int(
             input(f"""
