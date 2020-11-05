@@ -1,5 +1,4 @@
 """A complilation of all of the components."""
-from os import system, name
 from os.path import isfile
 import sqlite3
 from datetime import date
