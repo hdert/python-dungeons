@@ -7,14 +7,6 @@ from random import randint as rand
 import curses
 
 
-def clear_screen():
-    """Clear the screen."""
-    if name == 'nt':
-        system('cls')
-    else:
-        system('clear')
-
-
 def db_create(db_path="main.db"):  # noqa: D205, D400
     """Check that the database doesn't exist, create the database, create the
         tables, finally connect to the database.
@@ -356,7 +348,8 @@ def show_leaderboard(c):
             WHERE `username` LIKE ?
             ORDER BY `scoretotal` DESC, `username` ASC""", [username])
     else:
-        c.execute("""SELECT * FROM `leaderboard`""")
+        c.execute("""SELECT * FROM `leaderboard`
+        ORDER BY `scoretotal` DESC, `username` ASC""")
     stdscr = curses.initscr()
     curses.noecho()
     curses.cbreak()

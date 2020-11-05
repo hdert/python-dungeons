@@ -18,7 +18,8 @@ def show_leaderboard(c):
             WHERE `username` LIKE ?
             ORDER BY `scoretotal` DESC, `username` ASC""", [username])
     else:
-        c.execute("""SELECT * FROM `leaderboard`""")
+        c.execute("""SELECT * FROM `leaderboard`
+        ORDER BY `scoretotal` DESC, `username` ASC""")
     stdscr = curses.initscr()
     curses.noecho()
     curses.cbreak()
