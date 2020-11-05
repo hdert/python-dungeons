@@ -3,6 +3,7 @@ from user_binary_choice import user_binary_choice
 from get_username import get_username
 from clear_screen import clear_screen
 from shutil import get_terminal_size
+from clear_line import clear_line
 
 
 def show_leaderboard(c):
@@ -19,23 +20,21 @@ def show_leaderboard(c):
             WHERE `username` LIKE ?
             ORDER BY `scoretotal` DESC, `username` ASC""", [username])
     else:
-        c.execute("""SELECT * FROM `leaderboard`
-            ORDER BY `scoretotal`, `username` ASC""")
+        c.execute("""SELECT * FROM `leaderboard`""")
     clear_screen()
     results = c.fetchall()
     lines = 0
     while lines < len(results):
         print('/' + "¯" * 89 + '\\')
-        print(
-            f"| {'Username':15} | {'Date':10} | {'Overall Score':13} | {'Maths Score':11} | {'English Score':13} | {'NCEA Score':10} |"
-        )
+        print("| {:15} | {:10} | {:13} | {:11} | {:13} | {:10} |".format(
+            'Username', 'Date', 'Overall Score', 'Maths Score',
+            'English Score', 'NCEA Score'))
         for x in range(get_terminal_size().lines - 3):
-            line = x + lines
-            print(
-                f"| {results[line][0]:15} | {results[line][1]:10} | {results[line][5]:13} | {results[line][2]:11} | {results[line][3]:13} | {results[line][4]:10} |"
-            )
+            print("| {:15} | {:10} | {:13} | {:11} | {:13} | {:10} |".format(
+                results[lines][0], results[lines][1], results[lines][5],
+                results[lines][2], results[lines][3], results[lines][4]))
             lines += 1
-            if lines + x >= len(results):
+            if lines >= len(results):
                 input("(enter to continue)")
                 clear_screen()
                 return
@@ -47,7 +46,7 @@ def show_leaderboard(c):
             if user_input == 'n':
                 clear_screen()
                 break
-            print('\033[A', end='')
+            clear_line()
 
 
 if __name__ == "__main__":
