@@ -5,7 +5,7 @@ from navigate2 import navigate
 from quiz_check3 import quiz_check
 from quiz3 import quiz
 from leaderboard_entry import leaderboard_entry
-from show_leaderboard import show_leaderboard
+from show_leaderboard2 import show_leaderboard
 from user_binary_choice import user_binary_choice
 
 
