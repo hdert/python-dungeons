@@ -34,25 +34,31 @@ def quiz(location, score):
     # Initialize lists of answers and questions
     quiz_questions = [
         [
-            "The answer is Example:", """Finish the lyrics:
-    Boom clap I'm in me mom's *"""
+            """What is the correct formula to find the sum of the internal
+            angles of a polygon:""",
+            """What is the correct formula to find the sum of the external
+            angles of a polygon:"""
         ],
         [
-            "What part of speech is the word jump?",
+            "What part of speech is the word jump:",
             """What language feature is this:
     Go clean your room right now this instance you naughty little
     devil child!""", """What type of poem is this:
     Go clean your room right
     now this instance you naughty
     little devil child!"""
-        ], ["How many credits does a Year 11 student in 2020 need:"]
+        ],
+        [
+            "How many credits does a Level 1 student in 2020 need:",
+            "How many credits will a Level 2 student need next year:"
+        ]
     ]
-    quiz_answers = [[["Example", "None", "wasd", "Not Example", 0],
-                     ["car", "room", "house", "town", 0]],
+    quiz_answers = [[["n - 2 * 180", "(n - 2)180", "n - 2 * 60", "360", 1],
+                     ["n * 60", "n + 3 * 180", "(n + 3)180", "360", 3]],
                     [["Noun", "Verb", "Adjective", "Adverb", 1],
                      ["Hyperbole", "Rhetoric", "Imperative", "Sonnet", 2],
                      ["Sonnet", "Haiku", "Limerick", "Free verse", 1]],
-                    [["80", "60", "72", "70", 3]]]
+                    [["80", "60", "72", "70", 3], ["80", "60", "72", "52", 1]]]
     # get the question answer, and score values to use based on the users
     # location
     current_questions = quiz_questions[location - 1]
