@@ -3,7 +3,13 @@ from os.path import isfile
 import sqlite3
 from datetime import date
 from random import randint as rand
-import curses
+try:
+    import curses
+except ModuleNotFoundError:
+    input("""
+    You need to install windows-curses. You can do this through the
+    command:
+    `python -m pip install windows-curses`""")
 
 
 def db_create(db_path="main.db"):  # noqa: D205, D400
@@ -171,7 +177,7 @@ def navigate(location=0):  # noqa: D205
         The location of the user as an int.
     """
     room = [
-        "Crypt Entrance", "Math Room", "English Room", "NCEA Headquaters",
+        "Entrance", "Math Room", "English Room", "NCEA Headquaters",
         "Fancy Wall"
     ]
 
@@ -272,9 +278,9 @@ def quiz(location, score):
     quiz_questions = [
         [
             """What is the correct formula to find the sum of the internal
-            angles of a polygon:""",
+    angles of a polygon:""",
             """What is the correct formula to find the sum of the external
-            angles of a polygon:"""
+    angles of a polygon:"""
         ],
         [
             "What part of speech is the word jump:",
