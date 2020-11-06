@@ -35,9 +35,9 @@ def quiz(location, score):
     quiz_questions = [
         [
             """What is the correct formula to find the sum of the internal
-            angles of a polygon:""",
+    angles of a polygon:""",
             """What is the correct formula to find the sum of the external
-            angles of a polygon:"""
+    angles of a polygon:"""
         ],
         [
             "What part of speech is the word jump:",
