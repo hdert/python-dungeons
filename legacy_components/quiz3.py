@@ -37,7 +37,9 @@ def quiz(location, score):
             """What is the correct formula to find the sum of the internal
     angles of a polygon:""",
             """What is the correct formula to find the sum of the external
-    angles of a polygon:"""
+    angles of a polygon:""",
+            """Substiute u = 3 and t = 5 into the following equation:
+    d = ut + 3t²"""
         ],
         [
             "What part of speech is the word jump:",
@@ -54,7 +56,8 @@ def quiz(location, score):
         ]
     ]
     quiz_answers = [[["n - 2 * 180", "(n - 2)180", "n - 2 * 60", "360", 1],
-                     ["n * 60", "n + 3 * 180", "(n + 3)180", "360", 3]],
+                     ["n * 60", "n + 3 * 180", "(n + 3)180", "360", 3],
+                     ["15", "30", "100", "90", 3]],
                     [["Noun", "Verb", "Adjective", "Adverb", 1],
                      ["Hyperbole", "Rhetoric", "Imperative", "Sonnet", 2],
                      ["Sonnet", "Haiku", "Limerick", "Free verse", 1]],
