@@ -6,10 +6,14 @@ from random import randint as rand
 try:
     import curses
 except ModuleNotFoundError:
-    input("""
+    from traceback import print_exc
+    from sys import exit as sys_exit
+    print_exc()
+    print("""
     You need to install windows-curses. You can do this through the
     command:
     `python -m pip install windows-curses`""")
+    sys_exit()
 
 
 def db_create(db_path="main.db"):  # noqa: D205, D400
@@ -45,6 +49,31 @@ def db_create(db_path="main.db"):  # noqa: D205, D400
         )
         """)
     return c
+
+
+def fetch_results(c):
+    """Get the leaderboard with optional filtering by username.
+
+    Args:
+        c:
+            The cursor object.
+    Returns:
+        The results of the database query
+    """
+    if user_binary_choice("Do you want to search by username"):
+        username = f"%{get_username()}%"
+        c.execute(
+            """SELECT * FROM `leaderboard`
+            WHERE `username` LIKE ?
+            ORDER BY `scoretotal` DESC, `username` ASC""", [username])
+    else:
+        c.execute("""SELECT * FROM `leaderboard`
+        ORDER BY `scoretotal` DESC, `username` ASC""")
+    results = c.fetchall()
+    if not results:
+        input("""
+    No results.""")
+    return results
 
 
 def get_username():
@@ -147,6 +176,8 @@ def main():
                         leaderboard_entry(c, score)
                     if user_binary_choice(
                             "Do you want to see the leaderboard"):
+                        if 'c' not in locals():
+                            c = db_create()
                         show_leaderboard(c)
                     if not user_binary_choice("Do you want to play again"):
                         return
@@ -280,7 +311,9 @@ def quiz(location, score):
             """What is the correct formula to find the sum of the internal
     angles of a polygon:""",
             """What is the correct formula to find the sum of the external
-    angles of a polygon:"""
+    angles of a polygon:""",
+            """Substiute u = 3 and t = 5 into the following equation:
+    d = ut + 3t²"""
         ],
         [
             "What part of speech is the word jump:",
@@ -297,7 +330,8 @@ def quiz(location, score):
         ]
     ]
     quiz_answers = [[["n - 2 * 180", "(n - 2)180", "n - 2 * 60", "360", 1],
-                     ["n * 60", "n + 3 * 180", "(n + 3)180", "360", 3]],
+                     ["n * 60", "n + 3 * 180", "(n + 3)180", "360", 3],
+                     ["15", "30", "100", "90", 3]],
                     [["Noun", "Verb", "Adjective", "Adverb", 1],
                      ["Hyperbole", "Rhetoric", "Imperative", "Sonnet", 2],
                      ["Sonnet", "Haiku", "Limerick", "Free verse", 1]],
@@ -311,96 +345,100 @@ def quiz(location, score):
         # Run while there are still questions left
         rand_choice = rand(0, len(current_questions) - 1)
         # pick a random question and answer
-        answer = current_answers[rand_choice][
-            4]  # get the integer that 'points' to the correct answer
-        answer_text = current_answers[rand_choice][
-            answer]  # feed this integer back in to get the text of the answer
-        try:
-            user_input = int(
-                input(f"""
-    {current_questions.pop(rand_choice)}
-    1) {current_answers[rand_choice].pop(0)}
-    2) {current_answers[rand_choice].pop(0)}
-    3) {current_answers[rand_choice].pop(0)}
-    4) {current_answers[rand_choice].pop(0)}
+        user_input = None
+        while user_input not in (1, 2, 3, 4):
+            try:
+                user_input = int(
+                    input(f"""
+    {current_questions[rand_choice]}
+    1) {current_answers[rand_choice][0]}
+    2) {current_answers[rand_choice][1]}
+    3) {current_answers[rand_choice][2]}
+    4) {current_answers[rand_choice][3]}
     [1-4]: """))  # give the user the randomly selected question and possible
-            # answers
-        except ValueError:  # if the user doesn't put in an interger, skip the
-            # question and give them the error message
-            out_of_range_error(4)
-            user_input = None  # set user_input so the program doesn't break
-        # delete the question from the master list, and take user input
-        current_answers.pop(rand_choice)
+                # answers
+            except ValueError:  # if the user doesn't put in an interger, skip
+                # the question and give them the error message
+                out_of_range_error(4)
+                user_input = None  # set user_input so the program doesn't
+                # break delete the question from the master list, and take
+                # user input
         # get the answers to the randomly selected question
-        if user_input in (1, 2, 3, 4):  # check if the users input is valid
-            if user_input - 1 == answer:
-                input("""
+        if user_input - 1 == current_answers[rand_choice][4]:
+            input("""
     You got it right""")
-                score[location - 1] += 1
-            else:
-                input(f"""
+            score[location - 1] += 1
+        else:
+            input(f"""
     You got it wrong.
     The answer was:
-    {answer_text}""")
+    {current_answers[rand_choice][current_answers[rand_choice][4]]}""")
+        current_questions.pop(rand_choice)
+        current_answers.pop(rand_choice)
     return score
 
 
 def show_leaderboard(c):
-    """Display the leaderboard with an optional username search function.
+    """Display the leaderboard.
 
     Args:
         c:
             The cursor object.
     """
-    if user_binary_choice("Do you want to search by username"):
-        username = f"%{get_username()}%"
-        c.execute(
-            """SELECT * FROM `leaderboard`
-            WHERE `username` LIKE ?
-            ORDER BY `scoretotal` DESC, `username` ASC""", [username])
-    else:
-        c.execute("""SELECT * FROM `leaderboard`
-        ORDER BY `scoretotal` DESC, `username` ASC""")
-    stdscr = curses.initscr()  # initialize the curses window
-    curses.noecho()  # make user entered characters not appear
-    curses.cbreak()  # make user input instant
-    results = c.fetchall()
-    lines = 0
-    while lines < len(results):
-        stdscr.addstr(
-            "| {:15} | {:10} | {:13} | {:11} | {:13} | {:10} |\n".format(
-                'Username', 'Date', 'Overall Score', 'Maths Score',
-                'English Score', 'NCEA Score'))  # print the centered header
-        for x in range(curses.LINES - 2):
-            # do this as many times as the terminal's height - 1
+    results = fetch_results(c)
+    if not results:
+        return
+    try:
+        stdscr = curses.initscr()  # initialize the curses window
+        curses.noecho()  # make user entered characters not appear
+        curses.cbreak()  # make user input instant
+        lines = 0
+        while lines < len(results):
             stdscr.addstr(
                 "| {:15} | {:10} | {:13} | {:11} | {:13} | {:10} |\n".format(
-                    results[lines][0], results[lines][1], results[lines][5],
-                    results[lines][2], results[lines][3], results[lines][4]))
-            # print the results spaced out, line by line
-            lines += 1  # iterate the result line to print out
-            if lines >= len(results):
-                # if you reach the end of the results, pause, and end the
-                # program
-                stdscr.addstr("(enter to continue)")
-                stdscr.getkey()  # equivalent of input() but for one char
-                curses.endwin()  # close the curses window
-                return
-        stdscr.addstr("[q]uit, [n]ew page: ")
-        # once the results span the terminal's height - 1 print this prompt
-        stdscr.refresh()
-        # get curses to display the buffered output
-        while True:
-            # get the user's input forever until they hit a valid key
-            user_input = stdscr.getkey().lower()
-            if user_input == 'q':
-                # close the program
-                curses.endwin()
-                return
-            if user_input == 'n':
-                # clear the screen and then print a new screen of results
-                stdscr.clear()
-                break
+                    'Username', 'Date', 'Overall Score', 'Maths Score',
+                    'English Score',
+                    'NCEA Score'))  # print the centered header
+            for x in range(curses.LINES - 2):
+                # do this as many times as the terminal's height - 1
+                stdscr.addstr(
+                    "| {:15} | {:10} | {:13} | {:11} | {:13} | {:10} |\n".
+                    format(results[lines][0], results[lines][1],
+                           results[lines][5], results[lines][2],
+                           results[lines][3], results[lines][4]))
+                # print the results spaced out, line by line
+                lines += 1  # iterate the result line to print out
+                if lines >= len(results):
+                    # if you reach the end of the results, pause, and end the
+                    # program
+                    stdscr.addstr("(enter to continue)")
+                    stdscr.getkey()  # equivalent of input() but for one char
+                    curses.endwin()  # close the curses window
+                    return
+            stdscr.addstr("[q]uit, [n]ew page: ")
+            # once the results span the terminal's height - 1 print this prompt
+            stdscr.refresh()
+            # get curses to display the buffered output
+            while True:
+                # get the user's input forever until they hit a valid key
+                user_input = stdscr.getkey().lower()
+                if user_input == 'q':
+                    # close the program
+                    curses.endwin()
+                    return
+                if user_input == 'n':
+                    # clear the screen and then print a new screen of results
+                    stdscr.clear()
+                    break
+    except KeyboardInterrupt:
+        # catch the KeyboardInterrupt, close the curses window, print the
+        # traceback, then exit the program. This helps restore terminal
+        # control back to the user if they unexpectedly end the program
+        from traceback import print_exc
+        from sys import exit as sys_exit
+        curses.endwin()
+        print_exc()
+        sys_exit()
 
 
 def user_binary_choice(x):  # noqa: D400, D205
