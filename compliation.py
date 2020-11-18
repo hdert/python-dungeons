@@ -168,8 +168,8 @@ def main():
         while True:
             if quiz_check(location, score):
                 score = quiz(location, score)
-                if (score[0] is not None and score[1] is not None
-                        and score[2] is not None):
+                if (score[0] is not None and score[1] is not None and
+                        score[2] is not None):
                     if user_binary_choice(
                             "Do you want your score saved in the leaderboard"):
                         c = db_create()
@@ -265,15 +265,15 @@ def quiz_check(location, score):
     Returns:
         A boolean value, True if there is a quiz, False if there is not.
     """
-    if ((location == 1 and score[0] is not None)
-            or (location == 2 and score[1] is not None)
-            or (location == 3
-                and score[2] is not None)):  # check if the room has a score
+    if ((location == 1 and score[0] is not None) or
+        (location == 2 and score[1] is not None) or
+        (location == 3 and
+         score[2] is not None)):  # check if the room has a score
         # ∴ check if the room has been played
         return False
     if (
             location == 0
-    ):  # check if the room is the entrace room ∴ the room doesn't have a quiz
+    ):  # check if the room is the entrance room ∴ the room doesn't have a quiz
         return False
     return True
 
@@ -312,8 +312,19 @@ def quiz(location, score):
     angles of a polygon:""",
             """What is the correct formula to find the sum of the external
     angles of a polygon:""",
-            """Substiute u = 3 and t = 5 into the following equation:
-    d = ut + 3t²"""
+            """Substitute u = 3 and t = 5 into the following equation:
+    d = ut + 3t²""", "Solve the equation 10x² - 27x - 9 = 0",
+            """What is (8x - 1)/(4) + (3x-5)/(3) as a simplified single
+    fraction""", "What is (3x² + 9x)/(x² - 9) as a simplified single fraction",
+            """fk² - 9c² = 4d² + 16gk², Give the equation for k in terms of c,
+    d, f, and g.""", "What is 3 * 5", "5³",
+            "What does SOH in SOH CAH TOA stand for",
+            "What does CAH in SOH CAH TOA stand for",
+            "What does TOA in SOH CAH TOA stand for",
+            "Angles on a line add to", "Angles on a point add to",
+            "Vertically opposite angles", "Angles in a Triangle",
+            "Angles in a Square", "An exterior angle of a triangle equals",
+            "In an isosceles triangle", "Co-Interior angles on parallel lines"
         ],
         [
             "What part of speech is the word jump:",
@@ -322,20 +333,173 @@ def quiz(location, score):
     devil child!""", """What type of poem is this:
     Go clean your room right
     now this instance you naughty
-    little devil child!"""
+    little devil child!""",
+            "Every name is called a * as field and fountain street and town",
+            """In place of the noun the * stands as he and she can clap their
+    hands""", "The * describes a thing as magic wand or bridal ring",
+            """The * means action something done to read, to write, to jump,
+    to run""",
+            "How things are done the * tells as quickly, slowly, badly, well",
+            "The * shows relation as in the street or at the station",
+            "* join in many ways sentences, words, phrase, and phrase",
+            "Three little words you often see are * a, an, and the",
+            "The * cries out hark! We need an exclamation mark",
+            "A type of exaggeration used in literature.",
+            """A type of figurative imagery using like, as, or than to compare
+    two separate items with one another""",
+            "Saying something that is different from what you really mean",
+            "Using words that end in the same sounds",
+            "Repeating something to emphasize it",
+            """A series of words, connected in meaning and image which
+    emphasize a point""", "Using irony as a attack",
+            "A command to the reader or listener"
         ],
         [
             "How many credits does a Level 1 student in 2020 need:",
-            "How many credits will a Level 2 student need next year:"
+            "How many credits will a Level 2 student need next year:",
+            "The Great Depression started in", "Obsidian is a type of",
+            "Hyperinflation is when", "The proper name of America is",
+            "Woodrow Wilson was", "Team Fortress 2 is the", "Mein Kampf is",
+            "The Great Depression was caused by", "Armistice is",
+            """What are the three types of texts in the english external
+    unfamiliar texts""", "a NSN is a what", "A 747 is a famous",
+            "How much water should you drink in a day",
+            "Angles on the same arc",
+            """If the angle at the center of a circle is 180° the angle at the
+    circumference equals""", "alternate angles on parallel lines",
+            "corresponding angles on parallel lines",
+            "Two radii in a circle will form what"
         ]
     ]
-    quiz_answers = [[["n - 2 * 180", "(n - 2)180", "n - 2 * 60", "360", 1],
-                     ["n * 60", "n + 3 * 180", "(n + 3)180", "360", 3],
-                     ["15", "30", "100", "90", 3]],
-                    [["Noun", "Verb", "Adjective", "Adverb", 1],
-                     ["Hyperbole", "Rhetoric", "Imperative", "Sonnet", 2],
-                     ["Sonnet", "Haiku", "Limerick", "Free verse", 1]],
-                    [["80", "60", "72", "70", 3], ["80", "60", "72", "52", 1]]]
+    quiz_answers = [
+        [['n - 2 * 180', '(n - 2)180', 'n - 2 * 60', '360', 1],
+         ['n * 60', 'n + 3 * 180', '(n + 3)180', '360', 3],
+         ['15', '30', '100', '90', 3],
+         ['x = (-3/10) OR x = 3', 'x = 7', 'x = 3', '(10x + 3)(x - 3) = 0', 0],
+         [
+             '(36x-23)/(12)', '(3(8x - 1) + 4(3x - 5))/(12)', '(3x)/(x-3)',
+             '(24x - 3 + 12x - 20)/(12)', 0
+         ],
+         [
+             '(36x-23)/(12)', '(3x(x + 3))/((x+3)(x - 3))', '(3x)/(x-3)',
+             '(x - 3)/(3x)', 2
+         ],
+         [
+             'k = √((4d² + 9c²)/(f - 16g))', 'k = (4d² + 9c²)/(f - 16g)',
+             'k = √(4d² + 9c²)', 'k = 4d² + 9c² - f - 16g', 0
+         ], ['15', '20', '12', '8', 0], ['15', '45', '75', '125', 3],
+         [
+             'Sin', 'Sine', 'Sine Over Hypotenuse', 'Sine Opposite Hypotenuse',
+             3
+         ],
+         [
+             'Cos', 'Cosine Adjacent Hypotenuse', 'Cosine',
+             'Cosine Against Hypotenuse', 1
+         ],
+         [
+             'Tan', 'Tangent Over Hypotenuse', 'Tangent Opposite Hypotenuse',
+             'Tangent', 2
+         ], ['120°', '180°', '360°', 'Three', 1],
+         ['360°', '180°', '120°',
+          'Five', 0],
+         ['add to 180°', 'are equal', 'add to 360°', 'are not related', 1],
+         ['Add to 180°', 'Equals 360°', 'Equals 180°', 'Add to 360°', 0],
+         ['Add to 180°', 'Equals 360°', 'Equals 180°', 'Add to 360°', 3],
+         [
+             '120°', 'The sum of the two opposite angles',
+             '180° - the opposite angles', '360° - the opposite angles', 1
+         ],
+         [
+             'The base angles are equal', 'The base angles add to 180°',
+             'The base angles - 360° equals 180°',
+             'The base angles are in a romantic relationship', 0
+         ],
+         [
+             'Are equal', 'Add to 120°', 'Have no relationship', 'Add to 180°',
+             3
+         ]],
+        [['Noun', 'Verb', 'Adjective', 'Adverb', 1],
+         ['Hyperbole', 'Rhetoric', 'Imperative', 'Sonnet', 2],
+         ['Sonnet', 'Haiku', 'Limerick', 'Free verse',
+          1],
+         ['Verb', 'Adverb', 'Noun', 'Field',
+          2], ['clap', 'Article', 'Adverb', 'Pronoun',
+               3], ['Adjective', 'Magic', 'Conjunction', 'Pronoun', 0],
+         ['Verb', 'Adverb', 'Noun', 'Read',
+          0], ['Quickly', 'Verb', 'Adverb', 'Noun', 2],
+         ['Conjunction', 'Street', 'Preposition', 'Adjective', 2],
+         ['Conjunctions', 'Sentences', 'Prepositions', 'Adjectives', 0],
+         ['Trains', 'Articles', 'Adverbs', 'Pronouns', 1],
+         ['Conjunction', 'Mark', 'Interjection', 'Preposition', 2],
+         ['Exaggeration', 'Hyperbole', 'Imagery', 'Metaphor', 1],
+         ['Exaggeration', 'Imagery', 'Metaphor', 'Simile', 3],
+         ['Irony', 'Innuendo', 'Humor', 'Metaphor', 0],
+         ['Assonance', 'Rhythm', 'Rhyme', 'Repetition', 2],
+         ['Emphasis', 'Listing', 'Repetition', 'Direct speech',
+          2], ['Emphasis', 'Listing', 'Repetition', 'Direct speech', 1],
+         ['Irony', 'Sarcasm', 'Humor', 'Metaphor', 0],
+         ['Imperative', 'Direct address', 'Direct speech', 'Fart', 0]],
+        [['80', '60', '72', '70', 3], ['80', '60', '72', '52', 1],
+         ['1929', '1933', '1923', '1928', 0],
+         [
+             'Rock', 'Glass', 'Volcanic Glass',
+             'Block used to make a nether portal', 2
+         ],
+         [
+             'The value of a local currency quickly lowers',
+             'The gas content of a stomach rapidly increases',
+             "A country rapidly enlarges it's borders",
+             "Too many people start to work at McDonald's™", 0
+         ], ['The United States of America', 'We The People', 'USA', 'US', 0],
+         [
+             'A famous actor', 'A common name', 'A famous celebrity',
+             'The president of The United States of America (POTUS)', 3
+         ],
+         [
+             'Best game in existence', 'Has been in development for 19 years',
+             'And is not dead', 'All of the above', 3
+         ],
+         [
+             'German', 'A book written by Hitler',
+             'A book written by Woodrow Wilson', 'A famous piece of paper', 1
+         ],
+         [
+             'Hyperinflation', 'Mein Kampf', 'Hitler', 'The Wall Street Crash',
+             3
+         ],
+         [
+             'An agreement in a war to stop fighting',
+             'A form of jointed club', 'A type of business deal',
+             'The name for a yellow carrot', 0
+         ],
+         [
+             'Story, poem and fiction',
+             'Narrative prose, poetry and non-fiction',
+             'fiction, poetry and non-fiction',
+             'aggressive, assertive and passive', 1
+         ],
+         [
+             'National Steward Number', 'iNternational Scalene Nonagon',
+             'New South Nales', 'National Student Number', 3
+         ], ['Boat', 'Airbus Plane', 'Boeing Plane', 'Rifle', 2],
+         [
+             '2 Liters', '1.5 Liters', "Enough so that you aren't thirsty",
+             'How much you friends drink', 2
+         ], ['are 180°', 'add to 180°', 'are equal', 'add to 120°', 2],
+         ['80°', '50°', '180°', '90°', 3],
+         [
+             'Are equal', 'Add to 120°', 'Have no relationship', 'Add to 180°',
+             0
+         ],
+         [
+             'Are equal', 'Add to 120°', 'Have no relationship', 'Add to 180°',
+             0
+         ],
+         [
+             'A parallelogram', 'A polygon', 'A isosceles triangle',
+             'A scalene triangle', 2
+         ]]
+    ]
     # get the question answer, and score values to use based on the users
     # location
     current_questions = quiz_questions[location - 1]
