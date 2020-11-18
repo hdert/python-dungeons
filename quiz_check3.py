@@ -12,15 +12,15 @@ def quiz_check(location, score):
     Returns:
         A boolean value, True if there is a quiz, False if there is not.
     """
-    if ((location == 1 and score[0] is not None)
-            or (location == 2 and score[1] is not None)
-            or (location == 3
-                and score[2] is not None)):  # check if the room has a score
+    if ((location == 1 and score[0] is not None) or
+        (location == 2 and score[1] is not None) or
+        (location == 3 and
+         score[2] is not None)):  # check if the room has a score
         # ∴ check if the room has been played
         return False
     if (
             location == 0
-    ):  # check if the room is the entrace room ∴ the room doesn't have a quiz
+    ):  # check if the room is the entrance room ∴ the room doesn't have a quiz
         return False
     return True
 
