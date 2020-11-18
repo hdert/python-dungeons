@@ -3,3 +3,7 @@ __pycache__/
 .mypy_cache/
 .bandit
 main.db
+bin/
+lib/
+.~lock.*
+pyvenv.cfg
