@@ -1,4 +1,4 @@
-"""A complilation of all of the components."""
+"""A compilation of all of the components."""
 from os.path import isfile
 import sqlite3
 from datetime import date
@@ -505,11 +505,12 @@ def quiz(location, score):
     current_questions = quiz_questions[location - 1]
     current_answers = quiz_answers[location - 1]
     score[location - 1] = 0
-    while len(current_questions) > 0:
+    while len(current_questions) > 5:
         # Run while there are still questions left
+        # we only want to give 15/20 questions to the user
         rand_choice = rand(0, len(current_questions) - 1)
         # pick a random question and answer
-        user_input = None
+        user_input = None  # reset the user's input
         while user_input not in (1, 2, 3, 4):
             try:
                 user_input = int(
@@ -525,10 +526,10 @@ def quiz(location, score):
                 # the question and give them the error message
                 out_of_range_error(4)
                 user_input = None  # set user_input so the program doesn't
-                # break delete the question from the master list, and take
-                # user input
-        # get the answers to the randomly selected question
+                # break
         if user_input - 1 == current_answers[rand_choice][4]:
+            # shift user response to the left so it fits the list format and
+            # compare it to the index of the answer in the answer's list
             input("""
     You got it right""")
             score[location - 1] += 1
@@ -537,8 +538,10 @@ def quiz(location, score):
     You got it wrong.
     The answer was:
     {current_answers[rand_choice][current_answers[rand_choice][4]]}""")
+        # show the user the correct answer for user feedback
         current_questions.pop(rand_choice)
         current_answers.pop(rand_choice)
+        # delete the now used answer and question from their respective lists
     return score
 
 
@@ -551,12 +554,13 @@ def show_leaderboard(c):
     """
     results = fetch_results(c)
     if not results:
+        # end if there are no results
         return
     try:
         stdscr = curses.initscr()  # initialize the curses window
         curses.noecho()  # make user entered characters not appear
         curses.cbreak()  # make user input instant
-        lines = 0
+        lines = 0  # the total of lines that have been displayed on screen
         while lines < len(results):
             stdscr.addstr(
                 "| {:15} | {:10} | {:13} | {:11} | {:13} | {:10} |\n".format(
