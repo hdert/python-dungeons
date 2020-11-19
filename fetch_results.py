@@ -30,4 +30,4 @@ def fetch_results(c):
 
 if __name__ == "__main__":
     from db_create3 import db_create
-    fetch_results(db_create)
+    print(fetch_results(db_create()))
