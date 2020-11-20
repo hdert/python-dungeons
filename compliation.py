@@ -165,27 +165,25 @@ def main():
         score = [None, None, None]
         introduction()
         location = navigate()
-        while True:
-            if quiz_check(location, score):
-                score = quiz(location, score)
-                if (score[0] is not None and score[1] is not None and
-                        score[2] is not None):
-                    if user_binary_choice(
-                            "Do you want your score saved in the leaderboard"):
+        if quiz_check(location, score):
+            score = quiz(location, score)
+            if (score[0] is not None and score[1] is not None and
+                    score[2] is not None):
+                if user_binary_choice(
+                        "Do you want your score saved in the leaderboard"):
+                    c = db_create()
+                    leaderboard_entry(c, score)
+                if user_binary_choice("Do you want to see the leaderboard"):
+                    if 'c' not in locals():
                         c = db_create()
-                        leaderboard_entry(c, score)
-                    if user_binary_choice(
-                            "Do you want to see the leaderboard"):
-                        if 'c' not in locals():
-                            c = db_create()
-                        show_leaderboard(c)
-                    if not user_binary_choice("Do you want to play again"):
-                        return
-            else:
-                if location != 0:
-                    input("""
-    You've done this room.""")
-            location = navigate(location)
+                    show_leaderboard(c)
+                if not user_binary_choice("Do you want to play again"):
+                    return
+        else:
+            if location != 0:
+                input("""
+You've done this room.""")
+        location = navigate(location)
 
 
 def navigate(location=0):  # noqa: D205
