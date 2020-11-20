@@ -231,7 +231,7 @@ def quiz(location, score):
     current_questions = quiz_questions[location - 1]
     current_answers = quiz_answers[location - 1]
     score[location - 1] = 0
-    while len(current_questions) > 0:
+    while len(current_questions) > 5:
         # Run while there are still questions left
         rand_choice = rand(0, len(current_questions) - 1)
         # pick a random question and answer
@@ -249,10 +249,11 @@ def quiz(location, score):
                 # answers
             except ValueError:  # if the user doesn't put in an interger, skip
                 # the question and give them the error message
-                out_of_range_error(4)
                 user_input = None  # set user_input so the program doesn't
                 # break delete the question from the master list, and take
                 # user input
+            if user_input not in (1, 2, 3, 4):
+                out_of_range_error(4)
         # get the answers to the randomly selected question
         if user_input - 1 == current_answers[rand_choice][4]:
             input("""

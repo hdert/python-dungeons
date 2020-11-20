@@ -522,9 +522,10 @@ def quiz(location, score):
                 # answers
             except ValueError:  # if the user doesn't put in an interger, skip
                 # the question and give them the error message
-                out_of_range_error(4)
                 user_input = None  # set user_input so the program doesn't
                 # break
+            if user_input not in (1, 2, 3, 4):
+                out_of_range_error(4)
         if user_input - 1 == current_answers[rand_choice][4]:
             # shift user response to the left so it fits the list format and
             # compare it to the index of the answer in the answer's list
