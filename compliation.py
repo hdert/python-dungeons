@@ -61,7 +61,7 @@ def fetch_results(c):
         The results of the database query
     """
     if user_binary_choice("Do you want to search by username"):
-        username = f"%{get_username()}%"
+        username = "%{}%".format(get_username())
         c.execute(
             """SELECT * FROM `leaderboard`
             WHERE `username` LIKE ?
@@ -214,13 +214,16 @@ def navigate(location=0):  # noqa: D205
 
     try:
         user_input = int(
-            input(f"""
+            input("""
     Navigation:
-    1) North: {room[relations[0][location]]};
-    2) South: {room[relations[1][location]]};
-    3) East: {room[relations[2][location]]};
-    4) West: {room[relations[3][location]]};
-    [1-4]: """))
+    1) North: {};
+    2) South: {};
+    3) East: {};
+    4) West: {};
+    [1-4]: """.format(room[relations[0][location]],
+                      room[relations[1][location]],
+                      room[relations[2][location]],
+                      room[relations[3][location]])))
     except ValueError:
         out_of_range_error(4)
         return navigate(location)
@@ -355,7 +358,7 @@ def quiz(location, score):
         [
             "How many credits does a Level 1 student in 2020 need:",
             "How many credits will a Level 2 student need next year:",
-            "The Great Depression started in", "Obsidian is a type of",
+            "The Great Depression started in", "Obsidian is a type o",
             "Hyperinflation is when", "The proper name of America is",
             "Woodrow Wilson was", "Team Fortress 2 is the", "Mein Kampf is",
             "The Great Depression was caused by", "Armistice is",
@@ -512,13 +515,18 @@ def quiz(location, score):
         while user_input not in (1, 2, 3, 4):
             try:
                 user_input = int(
-                    input(f"""
-    {current_questions[rand_choice]}
-    1) {current_answers[rand_choice][0]}
-    2) {current_answers[rand_choice][1]}
-    3) {current_answers[rand_choice][2]}
-    4) {current_answers[rand_choice][3]}
-    [1-4]: """))  # give the user the randomly selected question and possible
+                    input("""
+    {}
+    1) {}
+    2) {}
+    3) {}
+    4) {}
+    [1-4]: """.format(current_questions[rand_choice],
+                      current_answers[rand_choice][0],
+                      current_answers[rand_choice][1],
+                      current_answers[rand_choice][2],
+                      current_answers[rand_choice][3]))
+                )  # give the user the randomly selected question and possible
                 # answers
             except ValueError:  # if the user doesn't put in an interger, skip
                 # the question and give them the error message
@@ -532,10 +540,11 @@ def quiz(location, score):
     You got it right""")
             score[location - 1] += 1
         else:
-            input(f"""
+            input("""
     You got it wrong.
     The answer was:
-    {current_answers[rand_choice][current_answers[rand_choice][4]]}""")
+    {}""".format(
+                current_answers[rand_choice][current_answers[rand_choice][4]]))
         # show the user the correct answer for user feedback
         current_questions.pop(rand_choice)
         current_answers.pop(rand_choice)
@@ -619,11 +628,11 @@ def user_binary_choice(x):  # noqa: D400, D205
     while True:
         try:
             user_input = int(
-                input(f"""
-    {x}:
+                input("""
+    {}:
     1) Yes
     2) No
-    [1-2]: """))
+    [1-2]: """.format(x)))
         except ValueError:
             out_of_range_error(2)
             return user_binary_choice(x)

@@ -41,13 +41,14 @@ def navigate(location=0):  # noqa: D205
     Returns:
         The location of the user as an int.
     """
-    user_input = input(f"""
+    user_input = input("""
     Navigation:
-    1) North: {room[N[location]]};
-    2) South: {room[S[location]]};
-    3) East: {room[E[location]]};
-    4) West: {room[W[location]]};
-    [1-4]: """)
+    1) North: {};
+    2) South: {};
+    3) East: {};
+    4) West: {};
+    [1-4]: """.format(room[N[location]], room[S[location]], room[E[location]],
+                      room[W[location]]))
     if user_input == '1':
         if N[location] == 4:
             input("""

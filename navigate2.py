@@ -30,13 +30,16 @@ def navigate(location=0):  # noqa: D205
 
     try:
         user_input = int(
-            input(f"""
+            input("""
     Navigation:
-    1) North: {room[relations[0][location]]};
-    2) South: {room[relations[1][location]]};
-    3) East: {room[relations[2][location]]};
-    4) West: {room[relations[3][location]]};
-    [1-4]: """))
+    1) North: {};
+    2) South: {};
+    3) East: {};
+    4) West: {};
+    [1-4]: """.format(room[relations[0][location]],
+                      room[relations[1][location]],
+                      room[relations[2][location]],
+                      room[relations[3][location]])))
     except ValueError:
         out_of_range_error(4)
         return navigate(location)

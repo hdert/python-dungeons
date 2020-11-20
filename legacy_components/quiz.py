@@ -23,9 +23,10 @@ def quiz(location, score):
         # Run while there are still questions left
         rand_choice = rand(0, len(current_questions) - 1)
         # pick a random question and answer
-        user_input = input(f"""
-    {current_questions.pop(rand_choice)}
-    : """)  # give the user the randomly selected question,
+        user_input = input("""
+    {}
+    : """.format(current_questions.pop(
+            rand_choice)))  # give the user the randomly selected question,
         # delete the question from the master list, and take user input
         answers = current_answers.pop(rand_choice)
         # get the answers to the randomly selected question
@@ -36,16 +37,16 @@ def quiz(location, score):
         else:
             answers_text = ""  # initialize answers_text as a string
             for i in answers:
-                answers_text += f"    {i},\n"
+                answers_text += "    {},\n".format(i)
                 # for each entry in answers, insert that answer with a leading
                 # tab and trailing comma and newline
             answers_text = "".join(
                 answers_text.rsplit(",\n", 1)
             )  # reverse version of string.replace(), replacing ",\n" with ""
-            input(f"""
+            input("""
     You got it wrong.
     The answer was one of:
-{answers_text}""")
+{}""".format(answers_text))
     return score
 
 

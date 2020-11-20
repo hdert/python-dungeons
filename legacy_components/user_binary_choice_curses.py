@@ -14,11 +14,11 @@ def user_binary_choice(stdscr, x):  # noqa: D400, D205
     """
     while True:
         try:
-            print(f"""
-    {x}:
+            print("""
+    {}:
     1) Yes
     2) No
-    [1-2]: """)
+    [1-2]: """.format(x))
             user_input = int(stdscr.getkey())
         except ValueError:
             out_of_range_error(stdscr, 2)

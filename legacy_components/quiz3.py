@@ -77,13 +77,18 @@ def quiz(location, score):
             answer]  # feed this integer back in to get the text of the answer
         try:
             user_input = int(
-                input(f"""
-    {current_questions.pop(rand_choice)}
-    1) {current_answers[rand_choice].pop(0)}
-    2) {current_answers[rand_choice].pop(0)}
-    3) {current_answers[rand_choice].pop(0)}
-    4) {current_answers[rand_choice].pop(0)}
-    [1-4]: """))  # give the user the randomly selected question and possible
+                input("""
+    {}
+    1) {}
+    2) {}
+    3) {}
+    4) {}
+    [1-4]: """.format(current_questions.pop(rand_choice),
+                      current_answers[rand_choice].pop(0),
+                      current_answers[rand_choice].pop(0),
+                      current_answers[rand_choice].pop(0),
+                      current_answers[rand_choice].pop(0)))
+            )  # give the user the randomly selected question and possible
             # answers
         except ValueError:  # if the user doesn't put in an interger, skip the
             # question and give them the error message
@@ -98,10 +103,10 @@ def quiz(location, score):
     You got it right""")
                 score[location - 1] += 1
             else:
-                input(f"""
+                input("""
     You got it wrong.
     The answer was:
-    {answer_text}""")
+    {}""".format(answer_text))
     return score
 
 

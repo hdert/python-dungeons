@@ -15,11 +15,11 @@ def user_binary_choice(x):  # noqa: D400, D205
     while True:
         try:
             user_input = int(
-                input(f"""
-    {x}:
+                input("""
+    {}:
     1) Yes
     2) No
-    [1-2]: """))
+    [1-2]: """.format(x)))
         except ValueError:
             out_of_range_error(2)
             return user_binary_choice(x)

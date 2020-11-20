@@ -38,9 +38,10 @@ def quiz(location, score):
         # Run while there are still questions left
         rand_choice = rand(0, len(current_questions) - 1)
         # pick a random question and answer
-        user_input = input(f"""
-    {current_questions.pop(rand_choice)}
-    : """)  # give the user the randomly selected question,
+        user_input = input("""
+    {}
+    : """.format(current_questions.pop(
+            rand_choice)))  # give the user the randomly selected question,
         # delete the question from the master list, and take user input
         answers = current_answers.pop(rand_choice)
         # get the answers to the randomly selected question

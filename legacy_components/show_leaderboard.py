@@ -14,7 +14,7 @@ def show_leaderboard(c):
             The cursor object.
     """
     if user_binary_choice("Do you want to search by username"):
-        username = f"%{get_username()}%"
+        username = "%{}%".format(get_username())
         c.execute(
             """SELECT * FROM `leaderboard`
             WHERE `username` LIKE ?
