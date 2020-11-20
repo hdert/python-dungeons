@@ -565,7 +565,7 @@ def show_leaderboard(c):
                     'Username', 'Date', 'Overall Score', 'Maths Score',
                     'English Score',
                     'NCEA Score'))  # print the centered header
-            for x in range(curses.LINES - 2):
+            for _ in range(curses.LINES - 2):
                 # do this as many times as the terminal's height - 1
                 stdscr.addstr(
                     "| {:15} | {:10} | {:13} | {:11} | {:13} | {:10} |\n".
