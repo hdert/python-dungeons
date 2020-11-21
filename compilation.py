@@ -3,11 +3,11 @@ from os.path import isfile
 import sqlite3
 from datetime import date
 from random import randint as rand
-from sys import exit as sys_exit
 try:
     import curses
 except ModuleNotFoundError:
     from traceback import print_exc
+    from sys import exit as sys_exit
     print_exc()
     print("""
     You need to install windows-curses. You can do this through the
@@ -206,9 +206,9 @@ def main():
                             c = db_create()
                         show_leaderboard(c)
                     if user_binary_choice("Do you want to play again"):
-                        return  # reset vars to play again
+                        break  # reset vars to play again
                     else:
-                        sys_exit()  # exit the program
+                        return  # exit the program
             location = navigate(location)
 
 
@@ -302,13 +302,13 @@ def quiz_check(location, score):
     Returns:
         A boolean value, True if there is a quiz, False if there is not.
     """
+    if (location == 0):
+        # check if the room is the entrance room ∴ the room doesn't have a quiz
+        return False
     if ((location == 1 and score[0] is not None) or
         (location == 2 and score[1] is not None) or
         (location == 3 and score[2] is not None)):
         # check if the room has a score ∴ checking if the room has been played
-        return False
-    if (location == 0):
-        # check if the room is the entrance room ∴ the room doesn't have a quiz
         input("""
     You've done this room.""")
         # give the user a message telling them they've played that room
@@ -475,7 +475,7 @@ def quiz(location, score):
          ['Assonance', 'Rhythm', 'Rhyme', 'Repetition', 2],
          ['Emphasis', 'Listing', 'Repetition', 'Direct speech',
           2], ['Emphasis', 'Listing', 'Repetition', 'Direct speech', 1],
-         ['Irony', 'Sarcasm', 'Humor', 'Metaphor', 0],
+         ['Irony', 'Sarcasm', 'Humor', 'Metaphor', 1],
          ['Imperative', 'Direct address', 'Direct speech', 'Fart', 0]],
         [['80', '60', '72', '70', 3], ['80', '60', '72', '52', 1],
          ['1929', '1933', '1923', '1928', 0],
@@ -522,7 +522,7 @@ def quiz(location, score):
          ], ['Boat', 'Airbus Plane', 'Boeing Plane', 'Rifle', 2],
          [
              '2 Liters', '1.5 Liters', "Enough so that you aren't thirsty",
-             'How much you friends drink', 2
+             'How much your friends drink', 2
          ], ['are 180°', 'add to 180°', 'are equal', 'add to 120°', 2],
          ['80°', '50°', '180°', '90°', 3],
          [
