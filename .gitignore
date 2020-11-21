@@ -7,3 +7,4 @@ bin/
 lib/
 .~lock.*
 pyvenv.cfg
+main.db.old
