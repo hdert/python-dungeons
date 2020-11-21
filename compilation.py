@@ -3,11 +3,11 @@ from os.path import isfile
 import sqlite3
 from datetime import date
 from random import randint as rand
+from sys import exit as sys_exit
 try:
     import curses
 except ModuleNotFoundError:
     from traceback import print_exc
-    from sys import exit as sys_exit
     print_exc()
     print("""
     You need to install windows-curses. You can do this through the
@@ -34,8 +34,10 @@ def db_create(db_path="main.db"):  # noqa: D205, D400
         The cursor object.
     """
     db_exists = isfile(db_path)
+    # check if the database exists before the database is created
     conn = sqlite3.connect(db_path)
     conn.isolation_level = None
+    # make it so that changes to the database are committed instantly
     c = conn.cursor()
     if not db_exists:
         c.execute("""
@@ -62,15 +64,23 @@ def fetch_results(c):
     """
     if user_binary_choice("Do you want to search by username"):
         username = f"%{get_username()}%"
+        # add wildcards around the username so that the user gets the most
+        # results
         c.execute(
             """SELECT * FROM `leaderboard`
-            WHERE `username` LIKE ?
-            ORDER BY `scoretotal` DESC, `username` ASC""", [username])
+        WHERE `username` LIKE ?
+        ORDER BY `scoretotal` DESC, `username` ASC""", [username])
+        # select all results that have the variable username in them
+        # order the results by the highest scoring, if there are conflicts
+        # order them by username
     else:
         c.execute("""SELECT * FROM `leaderboard`
         ORDER BY `scoretotal` DESC, `username` ASC""")
+        # if the user doesn't want to search by username give them all of the
+        # results
     results = c.fetchall()
     if not results:
+        # Give the user a message if there are no results
         input("""
     No results.""")
     return results
@@ -83,6 +93,7 @@ def get_username():
         A string with the validated username.
     """
     while True:
+        # do this until the user enters a valid input
         user_input = input("""
     Please enter the username: """)
         if len(user_input) > 15:
@@ -93,8 +104,17 @@ def get_username():
     The username is too short. The username needs to be more than 0
     characters""")
         elif user_input.isalnum() and not user_input.isnumeric():
+            # check if the user's input contains at least one letter or number
+            # follow this up by checking if the user's input is entirely
+            # numbers
+            # if the user has at least one character then it passes
+            # if the user has only numbers it fails
+            # if the user has at least one char and some numbers it passes
+            # it's this way so that mixed alpha numeric usernames work
             return user_input
         else:
+            # give the user a message if their username doesn't have any
+            # characters
             input("""
     The username doesn't contain any characters. Please use characters""")
 
@@ -115,6 +135,7 @@ def introduction():  # noqa: D205, D400
     will correspond to an action or answer.
     Try this example of navigation (press enter to continue)""")
     while True:
+        # get user input until they enter something valid
         user_input = input("""
     Navigation:
     1) North: Cheese Room;
@@ -122,6 +143,8 @@ def introduction():  # noqa: D205, D400
     3) East: Blocked Door;
     4) West: Blocked Door;
     [1-4]: """)
+        # this entire block can't be condensed in the manner of the component
+        # navigation because of the custom error messages and success messages
         if user_input == "1":
             input("""
     You obviously know what you're doing.""")
@@ -162,28 +185,31 @@ def leaderboard_entry(c, score):  # noqa: D400, D205
 def main():
     """Provide the background logic and link the components together."""
     while True:
-        score = [None, None, None]
+        score = [None, None, None]  # set the list of scores to None
         introduction()
         location = navigate()
-        if quiz_check(location, score):
-            score = quiz(location, score)
-            if (score[0] is not None and score[1] is not None and
-                    score[2] is not None):
-                if user_binary_choice(
-                        "Do you want your score saved in the leaderboard"):
-                    c = db_create()
-                    leaderboard_entry(c, score)
-                if user_binary_choice("Do you want to see the leaderboard"):
-                    if 'c' not in locals():
+        while True:
+            if quiz_check(location, score):
+                # check if a user has played the quiz of the room they're in
+                score = quiz(location, score)  # if so, play that quiz
+                if (score[0] is not None and score[1] is not None and
+                        score[2] is not None):
+                    if user_binary_choice(
+                            "Do you want your score saved in the leaderboard"):
                         c = db_create()
-                    show_leaderboard(c)
-                if not user_binary_choice("Do you want to play again"):
-                    return
-        else:
-            if location != 0:
-                input("""
-You've done this room.""")
-        location = navigate(location)
+                        leaderboard_entry(c, score)
+                    if user_binary_choice(
+                            "Do you want to see the leaderboard"):
+                        if 'c' not in locals():
+                            # check if the variable c exists
+                            # if it doesn't create it
+                            c = db_create()
+                        show_leaderboard(c)
+                    if user_binary_choice("Do you want to play again"):
+                        return  # reset vars to play again
+                    else:
+                        sys_exit()  # exit the program
+            location = navigate(location)
 
 
 def navigate(location=0):  # noqa: D205
@@ -205,11 +231,13 @@ def navigate(location=0):  # noqa: D205
     Returns:
         The location of the user as an int.
     """
+    # define room names
     room = [
         "Entrance", "Math Room", "English Room", "NCEA Headquaters",
         "Fancy Wall"
     ]
 
+    # define a list of where rooms are relative to each other
     relations = [[2, 4, 4, 4], [4, 4, 0, 4], [3, 0, 4, 4], [1, 4, 4, 0]]
 
     try:
@@ -222,15 +250,22 @@ def navigate(location=0):  # noqa: D205
     4) West: {room[relations[3][location]]};
     [1-4]: """))
     except ValueError:
+        # if user input is non-numeric show an error message and re-run the
+        # code
         out_of_range_error(4)
         return navigate(location)
     if user_input in (1, 2, 3, 4):
+        # check that the user input is valid
         if relations[user_input - 1][location] == 4:
+            # check if the user navigated towards a wall
+            # if so, re-run the code
             input("""
     That wall sure looks like a hidden entrance. You try and activate it,
     it doesn't react.""")
             return navigate(location)
+        # else return the index of the room
         return relations[user_input - 1][location]
+    # else throw an error an re-run the code
     out_of_range_error(4)
     return navigate(location)
 
@@ -245,11 +280,15 @@ def out_of_range_error(length):  # noqa: D205, D400
     """
     numbers = []
     for i in range(length):
+        # Make a list of the possible inputs the user could make
+        # This is so it's flexible and can be used in binary choice
+        # and multiple choice prompts
         numbers.append(str(i + 1))
     input("""
     When prompted, enter one of the numbers {}.
     Each number corresponds to an action printed on screen.""".format(
         ", ".join(numbers)))
+    # print out the list using the join() function to make it look pretty
 
 
 def quiz_check(location, score):
@@ -265,13 +304,14 @@ def quiz_check(location, score):
     """
     if ((location == 1 and score[0] is not None) or
         (location == 2 and score[1] is not None) or
-        (location == 3 and
-         score[2] is not None)):  # check if the room has a score
-        # ∴ check if the room has been played
+        (location == 3 and score[2] is not None)):
+        # check if the room has a score ∴ checking if the room has been played
         return False
-    if (
-            location == 0
-    ):  # check if the room is the entrance room ∴ the room doesn't have a quiz
+    if (location == 0):
+        # check if the room is the entrance room ∴ the room doesn't have a quiz
+        input("""
+    You've done this room.""")
+        # give the user a message telling them they've played that room
         return False
     return True
 
@@ -618,6 +658,7 @@ def user_binary_choice(x):  # noqa: D400, D205
         A boolean value, True if the user wants x, False if they do not.
     """
     while True:
+        # run until we get a valid input
         try:
             user_input = int(
                 input(f"""
@@ -626,12 +667,15 @@ def user_binary_choice(x):  # noqa: D400, D205
     2) No
     [1-2]: """))
         except ValueError:
+            # if the user enters a non-numeric character, show an error
+            # message and re-run the program
             out_of_range_error(2)
             return user_binary_choice(x)
         if user_input in (1, 2):
             if user_input == 1:
                 return True
             return False
+        # print an error message if the user enters an invalid input
         out_of_range_error(2)
 
 
