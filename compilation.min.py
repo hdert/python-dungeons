@@ -7,6 +7,10 @@ from datetime import date
 from random import randint as rand
 try:import curses
 except ModuleNotFoundError:from traceback import print_exc;from sys import exit as sys_exit;print_exc();print('\n    You need to install windows-curses. You can do this through the\n    command:\n    `python -m pip install windows-curses`');sys_exit()
+try:curses.initscr();curses.endwin()
+except AttributeError:from traceback import print_exc;from sys import exit as sys_exit;print_exc();print('\n    You need to run this program in one of: Windows Command Prompt or\n    Linux/Mac VT100 equivalent terminal.');sys_exit()
+from sys import version_info
+if version_info<(3,6):from sys import exit as sys_exit;print('\n    You need to use a version of python greater than or equal to python\n    version 3.6.0');sys_exit()
 def db_create(db_path='main.db'):
 	db_exists=isfile(db_path);conn=sqlite3.connect(db_path);conn.isolation_level=_A;c=conn.cursor()
 	if not db_exists:c.execute('\n        CREATE TABLE leaderboard(\n            username varchar(15) NOT NULL,\n            date date NOT NULL,\n            scoreone tinyint(2) NOT NULL,\n            scoretwo tinyint(2) NOT NULL,\n            scorethree tinyint(2) NOT NULL,\n            scoretotal tinyint(2) NOT NULL\n        )\n        ')
