@@ -3,7 +3,7 @@ from os.path import isfile
 import sqlite3
 from datetime import date
 from random import randint as rand
-try:
+try:  # check if the environment has module curses
     import curses
 except ModuleNotFoundError:
     from traceback import print_exc
@@ -13,6 +13,24 @@ except ModuleNotFoundError:
     You need to install windows-curses. You can do this through the
     command:
     `python -m pip install windows-curses`""")
+    sys_exit()
+try:  # check if the terminal supports cursor control
+    curses.initscr()
+    curses.endwin()
+except AttributeError:
+    from traceback import print_exc
+    from sys import exit as sys_exit
+    print_exc()
+    print("""
+    You need to run this program in one of: Windows Command Prompt or
+    Linux/Mac VT100 equivalent terminal.""")
+    sys_exit()
+from sys import version_info
+if version_info < (3, 6):  # Check if python version is less than 3.6.0
+    from sys import exit as sys_exit
+    print("""
+    You need to use a version of python greater than or equal to python
+    version 3.6.0""")
     sys_exit()
 
 
